@@ -1115,6 +1115,261 @@
         margin-top: 6px;
     }
     .hidden { display: none !important; }
+
+    /* ==========================================================
+       STARFALL DASH — SCI-FI MENU PASS
+       Visual-only redesign: no gameplay logic changes.
+       ========================================================== */
+    #start-screen {
+        justify-content: center;
+        gap: 14px;
+        background:
+            radial-gradient(circle at 78% 22%, rgba(79,195,247,0.16), transparent 25%),
+            radial-gradient(circle at 18% 78%, rgba(124,77,255,0.18), transparent 28%),
+            radial-gradient(circle at 50% 100%, rgba(0,229,255,0.08), transparent 35%),
+            rgba(3,7,24,0.82);
+        overflow: hidden;
+    }
+    #start-screen::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+            radial-gradient(1px 1px at 8% 18%, rgba(255,255,255,.9), transparent),
+            radial-gradient(1px 1px at 19% 42%, rgba(120,210,255,.8), transparent),
+            radial-gradient(1px 1px at 31% 12%, rgba(255,255,255,.7), transparent),
+            radial-gradient(1px 1px at 67% 24%, rgba(150,120,255,.8), transparent),
+            radial-gradient(1px 1px at 84% 62%, rgba(255,255,255,.8), transparent),
+            radial-gradient(1px 1px at 91% 16%, rgba(120,210,255,.8), transparent),
+            radial-gradient(1px 1px at 54% 88%, rgba(255,255,255,.6), transparent);
+        opacity: .8; pointer-events: none;
+    }
+    #start-screen::after {
+        content: '';
+        position: absolute;
+        width: 44vw; height: 44vw; max-width: 520px; max-height: 520px;
+        right: -10vw; top: -12vw;
+        border-radius: 50%;
+        background:
+            radial-gradient(circle at 35% 35%, rgba(255,255,255,.18), transparent 4%),
+            radial-gradient(circle at 42% 40%, rgba(79,195,247,.35), rgba(20,55,130,.25) 35%, rgba(3,7,24,0) 70%);
+        box-shadow: inset -35px -20px 80px rgba(0,0,0,.55), 0 0 100px rgba(79,195,247,.12);
+        pointer-events: none;
+    }
+    #start-screen > * { position: relative; z-index: 2; }
+    #start-screen h1 {
+        font-size: clamp(34px, 7vw, 64px);
+        letter-spacing: clamp(5px, 1.2vw, 12px);
+        line-height: .95;
+        text-shadow: 0 0 28px rgba(79,195,247,.28);
+        margin-top: 4px;
+    }
+    #start-screen h1 small {
+        font-size: .28em;
+        letter-spacing: 8px;
+        margin-top: 12px;
+        color: #79d9ff;
+        -webkit-text-fill-color: #79d9ff;
+    }
+    #start-screen .profile-badge {
+        top: 18px; right: 18px;
+        background: rgba(5,12,35,.55);
+        border: 1px solid rgba(117,198,255,.38);
+        box-shadow: 0 0 22px rgba(0,180,255,.08);
+        backdrop-filter: blur(16px);
+    }
+    #start-screen .stats-line {
+        gap: 0;
+        padding: 0;
+        background: rgba(3,10,28,.48);
+        border: 1px solid rgba(113,190,255,.18);
+        border-radius: 16px;
+        overflow: hidden;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 12px 50px rgba(0,0,0,.25);
+    }
+    #start-screen .stats-line .sl-item {
+        min-width: 72px;
+        justify-content: center;
+        padding: 8px 12px;
+        border-right: 1px solid rgba(255,255,255,.06);
+        font-size: 11px;
+    }
+    #start-screen .stats-line .sl-item:last-child { border-right: 0; }
+    #start-screen .stats-line .sl-item > span:first-child {
+        display: none;
+    }
+    #start-screen .stats-line .sl-val {
+        font-variant-numeric: tabular-nums;
+        text-shadow: 0 0 12px currentColor;
+    }
+
+    .menu-grid {
+        width: min(430px, 90vw);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .menu-tile {
+        min-height: 74px;
+        padding: 12px 18px;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 14px;
+        border: 1px solid rgba(112,198,255,.24);
+        border-radius: 14px;
+        background: linear-gradient(100deg, rgba(10,24,54,.82), rgba(5,13,35,.56));
+        color: #dceeff;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 8px 24px rgba(0,0,0,.18);
+        overflow: hidden;
+        transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .menu-tile::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(90deg, rgba(79,195,247,.11), transparent 55%);
+        opacity: 0;
+        transition: opacity .18s ease;
+        pointer-events: none;
+    }
+    .menu-tile:hover, .menu-tile:focus-visible {
+        transform: translateY(-2px);
+        border-color: rgba(79,195,247,.72);
+        box-shadow: 0 0 26px rgba(79,195,247,.12), inset 0 1px 0 rgba(255,255,255,.08);
+        outline: none;
+    }
+    .menu-tile:hover::before, .menu-tile:focus-visible::before { opacity: 1; }
+    .menu-tile.play {
+        grid-column: 1 / -1;
+        min-height: 82px;
+        background: linear-gradient(100deg, rgba(17,68,126,.72), rgba(6,25,58,.68));
+        border-color: rgba(79,195,247,.8);
+        box-shadow: 0 0 30px rgba(79,195,247,.13), inset 0 0 24px rgba(79,195,247,.05);
+    }
+    .menu-tile.core, .menu-tile.shop, .menu-tile.ach,
+    .menu-tile.daily, .menu-tile.rogue {
+        color: #dceeff;
+        border-color: rgba(112,198,255,.24);
+        background: linear-gradient(100deg, rgba(10,24,54,.82), rgba(5,13,35,.56));
+    }
+    .menu-tile .mt-icon {
+        width: 30px; height: 30px;
+        flex: 0 0 30px;
+        display: grid; place-items: center;
+        font-size: 0;
+        color: #8ee7ff;
+        filter: drop-shadow(0 0 8px rgba(79,195,247,.42));
+    }
+    .menu-tile.play .mt-icon { width: 36px; height: 36px; flex-basis: 36px; color: #fff; }
+    .menu-tile .mt-icon svg { width: 100%; height: 100%; overflow: visible; }
+    .menu-tile .mt-label {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2.4px;
+        color: #f2f8ff;
+        text-align: left;
+    }
+    .menu-tile .mt-sub {
+        margin-left: auto;
+        font-size: 9px;
+        letter-spacing: 1px;
+        color: #6e9dc4;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .menu-tile.play .mt-label {
+        font-size: 16px;
+        letter-spacing: 4px;
+    }
+    .menu-tile .mt-badge {
+        top: 7px; right: 7px;
+        min-width: 18px; height: 18px;
+        background: #ff5c7a;
+        box-shadow: 0 0 12px rgba(255,92,122,.55);
+    }
+    .bottom-row {
+        gap: 18px;
+        margin-top: 2px;
+    }
+    .icon-btn {
+        width: 38px; height: 38px;
+        border-radius: 11px;
+        background: rgba(4,15,38,.62);
+        border: 1px solid rgba(112,198,255,.28);
+        color: #7ccfff;
+        font-size: 0;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+        transition: .18s ease;
+    }
+    .icon-btn:hover, .icon-btn:focus-visible {
+        color: #fff;
+        border-color: rgba(79,195,247,.75);
+        box-shadow: 0 0 18px rgba(79,195,247,.15);
+        transform: translateY(-1px);
+        outline: none;
+    }
+    .icon-btn svg { width: 19px; height: 19px; }
+    .reset-link {
+        color: #62809c;
+        text-decoration: none;
+        letter-spacing: 1.2px;
+        font-size: 9px;
+        text-transform: uppercase;
+    }
+    .reset-link:hover { color: #ff7d96; }
+
+    @media (max-width: 560px) {
+        #start-screen { padding: 34px 14px 16px; }
+        #start-screen::after { width: 70vw; height: 70vw; right: -26vw; top: -8vw; }
+        #start-screen h1 { font-size: clamp(30px, 11vw, 46px); letter-spacing: 4px; }
+        #start-screen .stats-line { width: min(430px, 92vw); }
+        #start-screen .stats-line .sl-item { min-width: 16.66%; padding: 7px 4px; font-size: 10px; }
+        .menu-grid { width: min(430px, 92vw); gap: 7px; }
+        .menu-tile { min-height: 68px; padding: 10px 12px; gap: 10px; }
+        .menu-tile .mt-icon { width: 26px; height: 26px; flex-basis: 26px; }
+        .menu-tile .mt-label { font-size: 11px; letter-spacing: 1.5px; }
+        .menu-tile .mt-sub { display: none; }
+        .menu-tile.play { min-height: 74px; }
+        .menu-tile.play .mt-label { font-size: 14px; letter-spacing: 3px; }
+        .bottom-row { margin-top: 4px; }
+    }
+
+
+    .menu-hero {
+        position: absolute; width: min(420px, 58vw); height: min(260px, 34vw);
+        right: 4vw; bottom: 5vh; pointer-events: none; opacity: .95;
+        filter: drop-shadow(0 0 28px rgba(79,195,247,.16));
+    }
+    .hero-orbit {
+        position: absolute; width: 90%; height: 42%; left: 5%; top: 28%;
+        border: 1px solid rgba(101,215,255,.35); border-radius: 50%;
+        transform: rotate(-18deg); box-shadow: 0 0 22px rgba(79,195,247,.12);
+    }
+    .hero-orbit::after {
+        content:''; position:absolute; width:8px;height:8px;border-radius:50%;
+        right:9%; top:16%; background:#8ce9ff; box-shadow:0 0 16px #4fc3f7;
+    }
+    .hero-cube {
+        position:absolute; width:82px;height:82px; left:54%;top:27%;
+        transform:rotate(-14deg); border:1px solid rgba(180,245,255,.9);
+        border-radius:17px; background:linear-gradient(145deg,rgba(22,74,132,.92),rgba(3,15,38,.96));
+        box-shadow: inset 8px 8px 24px rgba(79,195,247,.18), 0 0 34px rgba(79,195,247,.34);
+    }
+    .hero-cube::before,.hero-cube::after {
+        content:'';position:absolute;border:1px solid rgba(120,222,255,.55);border-radius:12px;
+    }
+    .hero-cube::before{inset:9px;transform:skewY(-8deg);}
+    .hero-cube::after{inset:18px;transform:skewX(-8deg);opacity:.5;}
+    .hero-cube span,.hero-cube i {
+        position:absolute;width:9px;height:9px;border-radius:50%;background:#d9fbff;
+        top:30px;box-shadow:0 0 12px #4fc3f7;
+    }
+    .hero-cube span{left:23px}.hero-cube i{right:23px}
+    .hero-cube b {
+        position:absolute;width:25px;height:8px;left:28px;bottom:19px;
+        border-bottom:2px solid #a9f0ff;border-radius:0 0 20px 20px;opacity:.9;
+    }
+    @media (max-width: 800px) { .menu-hero { display:none; } }
+
 </style>
 </head>
 <body>
@@ -1165,7 +1420,7 @@
     </div>
 
     <div id="login-screen">
-        <h1>✦ Starfall Dash ✦<small>ROGUELIKE 2.6</small></h1>
+        <h1>STARFALL<br><span style="letter-spacing:6px">DASH</span><small>ROGUELIKE 3.0</small></h1>
         <div class="login-sub">👤 Кто играет?</div>
         <div id="profiles-list"></div>
     </div>
@@ -1280,6 +1535,8 @@
 
         <h1>✦ Starfall Dash ✦<small>ROGUELIKE 2.6</small></h1>
 
+        <div class="menu-hero" aria-hidden="true"><div class="hero-orbit"></div><div class="hero-cube"><span></span><i></i><b></b></div></div>
+
         <div class="stats-line">
             <div class="sl-item">
                 <span>🏆</span>
@@ -1309,39 +1566,39 @@
 
         <div class="menu-grid">
             <button class="menu-tile play" id="tile-play">
-                <div class="mt-icon">▶</div>
+                <div class="mt-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 7.5 25 16 11 24.5Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M6 5.5v21" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".5"/></svg></div>
                 <div class="mt-label">ИГРАТЬ</div>
             </button>
             <button class="menu-tile core" id="tile-core">
-                <div class="mt-icon">🌟</div>
+                <div class="mt-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m16 3 2.7 8.3H27l-6.7 4.9 2.6 8.3-6.9-5.1-6.9 5.1 2.6-8.3L5 11.3h8.3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width=".7" opacity=".35"/></svg></div>
                 <div class="mt-label">ЯДРО</div>
                 <div class="mt-sub">Прокачка</div>
                 <div class="mt-badge" id="core-badge" style="display:none;">0</div>
             </button>
             <button class="menu-tile shop" id="tile-shop">
-                <div class="mt-icon">🛒</div>
+                <div class="mt-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8h3l2.3 13.2a2 2 0 0 0 2 1.7h11.8a2 2 0 0 0 1.9-1.4L29 12H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="27" r="1.7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="27" r="1.7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></div>
                 <div class="mt-label">МАГАЗИН</div>
             </button>
             <button class="menu-tile ach" id="tile-ach">
-                <div class="mt-icon">🏆</div>
+                <div class="mt-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 5h14v7.5a7 7 0 0 1-14 0Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 8H5v4a5 5 0 0 0 5 5M23 8h4v4a5 5 0 0 1-5 5M16 19v6M11 28h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
                 <div class="mt-label">ДОСТИЖЕНИЯ</div>
                 <div class="mt-sub">28 наград</div>
             </button>
             <button class="menu-tile daily" id="tile-daily">
-                <div class="mt-icon">🎁</div>
+                <div class="mt-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 12h22v15H5zM3.5 8.5h25v4h-25zM16 8.5V27M16 8.5c-4.8 0-7.3-2-6.2-4.3 1-2 4.4-.8 6.2 4.3Zm0 0c4.8 0 7.3-2 6.2-4.3-1-2-4.4-.8-6.2 4.3Z" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round"/></svg></div>
                 <div class="mt-label">БОНУС</div>
                 <div class="mt-sub">Ежедневно +💎</div>
             </button>
             <button class="menu-tile rogue" id="tile-quick" style="background:linear-gradient(135deg,rgba(124,255,178,0.15),rgba(27,94,32,0.1));border-color:#7cffb2;color:#7cffb2;">
-                <div class="mt-icon">🎲</div>
+                <div class="mt-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="5" fill="none" stroke="currentColor" stroke-width="1.6" transform="rotate(-9 16 16)"/><circle cx="11" cy="11" r="1.5" fill="currentColor"/><circle cx="21" cy="21" r="1.5" fill="currentColor"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/></svg></div>
                 <div class="mt-label">РОГАЛИК</div>
                 <div class="mt-sub">Быстрый старт</div>
             </button>
         </div>
 
         <div class="bottom-row">
-            <button class="icon-btn" id="btn-settings" title="Настройки">⚙️</button>
-            <button class="icon-btn" id="btn-help" title="Помощь">❓</button>
+            <button class="icon-btn" id="btn-settings" title="Настройки" aria-label="Настройки"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.6 3.4h4.8l.7 2.5a8.8 8.8 0 0 1 1.9 1.1l2.4-.8 2.4 4.1-1.8 1.7a8 8 0 0 1 0 2.2l1.8 1.7-2.4 4.1-2.4-.8a8.8 8.8 0 0 1-1.9 1.1l-.7 2.5H9.6l-.7-2.5A8.8 8.8 0 0 1 7 19.2l-2.4.8-2.4-4.1L4 14.2a8 8 0 0 1 0-2.2L2.2 10l2.4-4.1 2.4.8a8.8 8.8 0 0 1 1.9-1.1Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><circle cx="12" cy="13.1" r="3.2" fill="none" stroke="currentColor" stroke-width="1.25"/></svg></button>
+            <button class="icon-btn" id="btn-help" title="Помощь" aria-label="Помощь"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M9.5 9.2a2.7 2.7 0 0 1 5.1 1.2c0 2.2-2.6 2.1-2.6 4.1M12 17.8v.1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
             <span class="reset-link" id="reset-progress">Сбросить</span>
         </div>
     </div>
